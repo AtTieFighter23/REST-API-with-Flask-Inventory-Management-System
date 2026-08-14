@@ -72,6 +72,11 @@ def test_create_inventory_item_missing_name(client):
     assert response.status_code == 400
 
 
+def test_create_inventory_item_invalid_price_type(client):
+    response = client.post("/inventory", json={"product_name": "Bad Item", "price": "not a number"})
+    assert response.status_code == 400
+
+
 def test_update_inventory_item(client):
     response = client.patch("/inventory/1", json={"price": 6.99, "stock": 50})
     assert response.status_code == 200
